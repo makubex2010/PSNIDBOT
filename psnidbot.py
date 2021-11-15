@@ -3,22 +3,12 @@ import _thread
 import threading
 import time
 import logging
-import pymongo
-from collections import namedtuple
-from datetime import datetime, timedelta, time
-from functools import wraps
+import mysql
+from Roll import Roll
 from telegram.ext import Updater
 from telegram.ext import CommandHandler
 
 updater = Updater(token="2132340913:AAGeFSdbISuDcCAZB3q42PXtFfojjB2j1O8")
-MONGODB_CLIENT = 'mongodb+srv://makubex2010:306578@cluster0.kjrdp.mongodb.net/Cluster0?retryWrites=true&w=majority'
-DB_NAME = 'PSNID'
-COLLECTION_NAME = 'db'
-
-
-client = pymongo.MongoClient(MONGODB_CLIENT)
-db = client[DB_NAME]
-todo_list = db[COLLECTION_NAME]
 
 dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -34,28 +24,51 @@ def start(bot, update):
     sendMsg(bot, update, '如果您需要幫助，請使用 /help')
 
 def helpmsg(bot, update):
-    sendMsg(bot, update, '發送 /add 添加PSNID 或 /change 查詢名單')
-    sendMsg(bot, update, '添加格式為: KevinChen💫(AzukiMinaduki) 以好辨認!')
+    sendMsg(bot, update, '發送或回覆 /id 以搜索某人的 PsnID\n/change更改以設置您的 PsnID')
     
-def add(update, context):
-    chat_id = update["message"]["chat"]["id"]
-    text = " ".join(update["message"]["text"].split(' ')[1:])
-    todo_list.find_one_and_update({'chat_id' : chat_id}, {"$push": {"todo_list": text}})
-    update.message.reply_text("你的PSNID添加！")
-    
-def list_items(update, context):
-    chat_id = update["message"]["chat"]["id"]
-    _list = todo_list.find_one({'chat_id' : chat_id})
-    text = ""
-    for index, item in enumerate(_list["todo_list"]):
-        text += str(index + 1) + "- " + item + "\n"
-    update.message.reply_text(text)
+def searchid(bot, update, args):
+        try:
+                msg = ''.join(args)
+                if(len(msg) > 0):
+                        msg = msg[1:]
+                        psnid = mysql.searchname(msg)
+                else:
+                        user = update.message.reply_to_message.from_user
+                        psnid = mysql.searchindb(user.id)
+                whose = 'ID: '
+        except:
+                user = update.message.from_user
+                psnid = mysql.searchindb(user.id)
+                whose = '你的PSNID是: '
+        if(psnid == -1):
+                psnid = 'Not define'
+        msgid = update.message.message_id
+        replyMsg(bot, update, str(whose) + str(psnid))
+#        delmsg(bot, update)
+        _thread.start_new_thread(delmsg,(bot,update) )
+
+def changeid(bot, update, args):
+        userid = update.message.from_user.id
+        msgid = update.message.message_id
+        username = update.message.from_user.username
+        msg = ' '.join(args)
+        if(len(msg) <= 0):
+                replyMsg(bot, update, '請告訴我你的新ID')
+                return
+        if(mysql.searchindb(userid) != -1):
+                mysql.changeondb(userid, msg, username)
+                replyMsg(bot, update, '更新')
+        else:
+                mysql.inserttodb(userid, msg, username)
+                replyMsg(bot, update, '更改完成')
+#        delmsg(bot, update)
+        _thread.start_new_thread(delmsg,(bot,update) )
 
 
 start_handler = CommandHandler('start',start)
 help_handler = CommandHandler('help',helpmsg)
-add_handler = CommandHandler('add',add)
-list_handler = CommandHandler('change',list_items)
+add_handler = CommandHandler('d',searchid)
+list_handler = CommandHandler('change',changeid)
 
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(help_handler)

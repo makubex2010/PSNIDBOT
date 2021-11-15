@@ -15,7 +15,7 @@ from telegram.ext import CommandHandler
 from telegram import ParseMode
 
 from dbmanager import DBManager as dbm
-from extras
+from extras import *
 
 # load config
 with open("config.json") as f:

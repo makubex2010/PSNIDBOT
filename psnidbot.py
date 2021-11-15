@@ -32,7 +32,7 @@ def start(bot, update):
 
 def helpmsg(bot, update):
     sendMsg(bot, update, '發送 /add 添加PSNID 或 /list 查詢名單')
-    sendMsg(bot, update, '添加格式為: KevinChen💫(AzukiMinaduki) 已好辨認!')
+    sendMsg(bot, update, '添加格式為: KevinChen💫(AzukiMinaduki) 以好辨認!')
 
 def add(update, context):
     chat_id = update["message"]["chat"]["id"]

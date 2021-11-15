@@ -18,10 +18,10 @@ def replyMsg(update, context, msg):
 def sendMsg(update, context, msg):
     context.bot.sendMessage(chat_id=update.message.chat_id, text = msg)
 
-def delmsg(update, context):
+def delmsg(bot, update):
     time.sleep(10)
     try:
-        context.bot.delete_message(update.message.chat_id, update.message.message_id + 1)
+        bot.delete_message(update.message.chat_id, update.message.message_id + 1)
     except:
         pass
 

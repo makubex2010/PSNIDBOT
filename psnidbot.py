@@ -24,7 +24,7 @@ def start(bot, update):
     sendMsg(bot, update, '如果您需要幫助，請使用 /help')
 
 def helpmsg(bot, update):
-    sendMsg(bot, update, '發送或回覆 /id 以搜索某人的 PsnID\n/change更改以設置您的 PsnID')
+    sendMsg(bot, update, '發送或回覆 /id 搜索他人的 PsnID\n/change 可更改以您的 PsnID')
     
 def searchid(update, context):
         try:

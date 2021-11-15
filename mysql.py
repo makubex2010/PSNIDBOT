@@ -16,7 +16,7 @@ def inserttodb(userid, psnid, username = None):
         % (userid, pymysql.escape_string(psnid), pymysql.escape_string(username))
         connectDB(cmd)
 
-def changeondb(userid, liveid, username = None):
+def changeondb(userid, psnid, username = None):
         cmd = "UPDATE PlayStationNetworkID set psnid='%s' WHERE userid=%d" % (pymysql.escape_string(psnid), userid)
         cmd2 = "UPDATE PlayStationNetworkID set username='%s' WHERE userid=%d" % (pymysql.escape_string(username), userid)
         connectDB(cmd)

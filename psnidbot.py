@@ -36,17 +36,17 @@ def searchid(bot, update):
                 msg = ''.join(args)
                 if(len(msg) > 0):
                         msg = msg[1:]
-                        liveid = mysql.searchname(msg)
+                        psnid = mysql.searchname(msg)
                 else:
                         user = update.message.reply_to_message.from_user
-                        liveid = mysql.searchindb(user.id)
+                        psnid = mysql.searchindb(user.id)
                 whose = 'ID: '
         except:
                 user = update.message.from_user
-                liveid = mysql.searchindb(user.id)
+                psnid = mysql.searchindb(user.id)
                 whose = '你的PSNID是: '
         if(liveid == -1):
-                liveid = 'Not define'
+                psnid = 'Not define'
         msgid = update.message.message_id
         replyMsg(bot, update, str(whose) + str(liveid))
 #        delmsg(bot, update)

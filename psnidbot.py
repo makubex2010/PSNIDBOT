@@ -52,41 +52,12 @@ def searchid(bot, update):
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot,update) )
 
-
-                 
-def changeid(bot, update, args):
-        userid = update.message.from_user.id
-        msgid = update.message.message_id
-        username = update.message.from_user.username
-        msg = ' '.join(args)
-        if(len(msg) <= 0):
-                replyMsg(bot, update, 'Please tell me your new id')
-                return
-        if(mysql.searchindb(userid) != -1):
-                mysql.changeondb(userid, msg, username)
-                replyMsg(bot, update, 'updated')
-        else:
-                mysql.inserttodb(userid, msg, username)
-                replyMsg(bot, update, 'changed')
-#        delmsg(bot, update)
-        _thread.start_new_thread(delmsg,(bot,update) )
-
 start_handler = CommandHandler('start',start)
-createRoll_handler = CommandHandler('createRoll',createRoll, pass_args = True)
-rollList_handler = CommandHandler('RollList',rollList)
-joinRoll_handler = CommandHandler('join',joinRoll, pass_args = True)
-search_handler = CommandHandler('id',searchid, pass_args = True)
-change_handler = CommandHandler('change',changeid, pass_args = True)
 help_handler = CommandHandler('help',helpmsg)
-setAdmins_handler = CommandHandler('setadmins', setAdmins)
+search_handler = CommandHandler('id',searchid, pass_args = True)
 
-dispatcher.add_handler(joinRoll_handler)
-dispatcher.add_handler(setAdmins_handler)
-dispatcher.add_handler(rollList_handler)
-dispatcher.add_handler(createRoll_handler)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(search_handler)
-dispatcher.add_handler(change_handler)
 dispatcher.add_handler(help_handler)
 
 updater.start_polling()

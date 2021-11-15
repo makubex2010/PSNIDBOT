@@ -3,8 +3,7 @@ import _thread
 import threading
 import time
 import logging
-import mysql
-from Roll import Roll
+import pymongo
 from telegram.ext import Updater
 from telegram.ext import CommandHandler
 

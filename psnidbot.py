@@ -26,7 +26,7 @@ def start(bot, update):
 def helpmsg(bot, update):
     sendMsg(bot, update, '發送或回覆 /id 以搜索某人的 PsnID\n/change更改以設置您的 PsnID')
     
-def searchid(bot, update, args):
+def searchid(bot, update):
         try:
                 msg = ''.join(args)
                 if(len(msg) > 0):
@@ -47,7 +47,7 @@ def searchid(bot, update, args):
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot,update) )
 
-def changeid(bot, update, args):
+def changeid(bot, update):
         userid = update.message.from_user.id
         msgid = update.message.message_id
         username = update.message.from_user.username

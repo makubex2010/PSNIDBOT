@@ -1,1 +1,1 @@
-worker: python3 livebot.py
+worker: python3 psnidbot.py

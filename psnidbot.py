@@ -31,7 +31,11 @@ def start(bot, update):
     sendMsg(bot, update, '如果您需要幫助，請使用 /help')
 
 def helpmsg(bot, update):
-    sendMsg(bot, update, '發送 /add 添加PSNID 或 /list 查詢名單，添加格式為:KevinChen💫(AzukiMinaduki)，已好辨認!')
+    sendMsg(bot, update, '發送 /add 添加PSNID 或 /list')
+    sendMsg(bot, update, '"""
+            _查詢名單_
+            _添加格式為:KevinChen💫(AzukiMinaduki)_
+            _已好辨認!"""')
 
 def add(update, context):
     chat_id = update["message"]["chat"]["id"]

@@ -1,6 +1,6 @@
 # PlayStation-NetworkBOT
 ## 介紹
-Bot for telegram xbox group
+Bot for telegram PlayStation group
 ## 需安裝程式
 ```
 $ pip3 install python-telegram-bot

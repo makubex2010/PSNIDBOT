@@ -9,8 +9,8 @@ from telegram.ext import CommandHandler
 
 updater = Updater(token="2132340913:AAGeFSdbISuDcCAZB3q42PXtFfojjB2j1O8")
 MONGODB_CLIENT = 'mongodb+srv://makubex2010:306578@cluster0.kjrdp.mongodb.net/myFirstDatabase'
-DB_NAME = 'myFirstDatabase'
-COLLECTION_NAME = 'psnid'
+DB_NAME = 'psnid'
+COLLECTION_NAME = 'PSNID'
 
 
 client = pymongo.MongoClient(MONGODB_CLIENT)

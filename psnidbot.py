@@ -48,7 +48,7 @@ def searchid(bot, update):
         if(liveid == -1):
                 psnid = 'Not define'
         msgid = update.message.message_id
-        replyMsg(bot, update, str(whose) + str(liveid))
+        replyMsg(bot, update, str(whose) + str(psnid)
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot,update) )
 

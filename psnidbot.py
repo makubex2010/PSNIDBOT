@@ -28,15 +28,15 @@ def helpmsg(bot, update):
 @dp.message_handler(commands=['id'])
 async def get_all_messages(message: types.Message):
     user = message.from_user
-    last_input = db.get("users", "last_input", user.id)
-    user_notes = eval(db.get("users", "notes", user.id))
-    user_input_status = eval(db.get("users", "input_status", user.id))
+    last_input = mysql.get("users", "last_input", user.id)
+    user_notes = eval(mysql.get("users", "notes", user.id))
+    user_input_status = eval(mysql.get("users", "input_status", user.id))
     note_kb    = ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
 
     if not user_input_status["name_input"] and not user_input_status["description_input"]:
         if message.text == "[添加備註]":
             user_input_status["name_input"] = True
-            db.set("users", "input_status", user.id, str(user_input_status))
+            mysql.set("users", "input_status", user.id, str(user_input_status))
             await message.reply("為你的筆記寫一個名字。")
             return
 
@@ -59,9 +59,9 @@ async def get_all_messages(message: types.Message):
     else:
         if user_input_status["description_input"]:
             user_notes[last_input] = {"description" : message.text, "date": str(message.date)}
-            db.set('users', 'notes', user.id, str(user_notes))
+            mysql.set('users', 'notes', user.id, str(user_notes))
             user_input_status = {"name_input": False, "description_input": False}
-            db.set('users', 'input_status', user.id, str(user_input_status))
+            mysql.set('users', 'input_status', user.id, str(user_input_status))
 
             for note in user_notes.keys():
                 note_kb.add(KeyboardButton(f"{note} | {user_notes[note]['date']}"))
@@ -72,9 +72,9 @@ async def get_all_messages(message: types.Message):
             return
     
         if user_input_status["name_input"]:
-            db.set('users', 'last_input', user.id, message.text)
+            mysql.set('users', 'last_input', user.id, message.text)
             user_input_status["description_input"] = True
-            db.set('users', 'input_status', user.id, str(user_input_status))
+            mysql.set('users', 'input_status', user.id, str(user_input_status))
             await message.reply(f"筆記的線框已經創建，現在是時候編寫筆記本身了。")
             return
 

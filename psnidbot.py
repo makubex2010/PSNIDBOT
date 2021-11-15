@@ -26,9 +26,9 @@ def start(bot, update):
 def helpmsg(bot, update):
     sendMsg(bot, update, '發送或回覆 /id 以搜索某人的 PsnID\n/change更改以設置您的 PsnID')
     
-def searchid(bot, update):
+def searchid(update, context):
         try:
-                msg = ''.join(args)
+                msg = ''.join(data)
                 if(len(msg) > 0):
                         msg = msg[1:]
                         psnid = mysql.searchname(msg)
@@ -47,11 +47,11 @@ def searchid(bot, update):
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot,update) )
 
-def changeid(bot, update):
+def changeid(update, context):
         userid = update.message.from_user.id
         msgid = update.message.message_id
         username = update.message.from_user.username
-        msg = ' '.join(args)
+        msg = ' '.join(data)
         if(len(msg) <= 0):
                 replyMsg(bot, update, '請告訴我你的新ID')
                 return

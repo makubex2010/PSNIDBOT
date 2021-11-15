@@ -18,7 +18,7 @@ def replyMsg(update, context, msg):
 def sendMsg(update, context, msg):
     context.bot.sendMessage(chat_id=update.message.chat_id, text = msg)
 
-def delmsg(bot, update):
+def delmsg(update, context):
     time.sleep(10)
     try:
         context.bot.delete_message(update.message.chat_id, update.message.message_id + 1)
@@ -50,7 +50,7 @@ def searchid(bot, update):
         msgid = update.message.message_id
         replyMsg(bot, update, str(whose) + str(psnid)
 #        delmsg(bot, update)
-        thread.start_new_thread(delmsg,(bot,update) )
+        thread.start_new_thread(delmsg,(bot,update))
 
 def changeid(bot, update):
         userid = update.message.from_user.id
@@ -67,7 +67,7 @@ def changeid(bot, update):
                 mysql.inserttodb(userid, msg, username)
                 replyMsg(bot, update, 'changed')
 #        delmsg(bot, update)
-        thread.start_new_thread(delmsg,(bot,update) )
+        thread.start_new_thread(delmsg,(bot,update))
 
 updater.dispatcher.add_handler(CommandHandler('start', start))
 updater.dispatcher.add_handler(CommandHandler('id',searchid, pass_args = True))

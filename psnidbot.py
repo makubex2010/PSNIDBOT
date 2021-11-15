@@ -66,8 +66,8 @@ def changeid(update, context):
 
 
 start_handler = CommandHandler('start',start)
-search_handler = CommandHandler('id',searchid, pass_args = True)
-change_handler = CommandHandler('change',changeid, pass_args = True)
+search_handler = CommandHandler('id',searchid)
+change_handler = CommandHandler('change',changeid)
 help_handler = CommandHandler('help',helpmsg)
 
 dispatcher.add_handler(start_handler)

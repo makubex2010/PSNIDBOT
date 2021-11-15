@@ -3,8 +3,8 @@
 import pymongo
 
 def connectDB(cmd):
-        db = MONGODB_CLIENT
-        MONGODB_CLIENT = 'mongodb+srv://makubex2010:306578@cluster0.kjrdp.mongodb.net/PSNID?retryWrites=true&w=majority'
+        client = pymongo.MongoClient('mongodb+srv://makubex2010:306578@cluster0.kjrdp.mongodb.net/PSNID?retryWrites=true&w=majority')
+        db = db['db']
         cursor = db.cursor()
         cursor.execute(cmd)
         data = cursor.fetchone()

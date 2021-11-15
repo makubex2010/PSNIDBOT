@@ -1,9 +1,9 @@
 #! /usr/bin/python3
 
-import pymongo
+import pymysql
 
 def connectDB(cmd):
-        db = pymongo.MongoClient('mongodb+srv://makubex2010:306578@cluster0.kjrdp.mongodb.net/PSNID?retryWrites=true&w=majority')
+        db = pymysql.connect("s465z7sj4pwhp7fn.cbetxkdyhwsb.us-east-1.rds.amazonaws.com", "u0oumepy212w7hrd", "lmhzodresmb5a1dr", "wagjozo03g4tc27f", charset='utf8' )
         cursor = db.cursor()
         cursor.execute(cmd)
         data = cursor.fetchone()

@@ -66,13 +66,13 @@ def changeid(bot, update, args):
 
 
 start_handler = CommandHandler('start',start)
+search_handler = CommandHandler('id',searchid, pass_args = True)
+change_handler = CommandHandler('change',changeid, pass_args = True)
 help_handler = CommandHandler('help',helpmsg)
-add_handler = CommandHandler('d',searchid)
-list_handler = CommandHandler('change',changeid)
 
 dispatcher.add_handler(start_handler)
+dispatcher.add_handler(search_handler)
+dispatcher.add_handler(change_handler)
 dispatcher.add_handler(help_handler)
-dispatcher.add_handler(add_handler)
-dispatcher.add_handler(list_handler)
 
 updater.start_polling()

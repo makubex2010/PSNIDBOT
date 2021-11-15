@@ -1,4 +1,4 @@
-# PSNIDBot
+# PlayStation-NetworkBOT
 ## 介紹
 Bot for telegram xbox group
 ## 需安裝程式

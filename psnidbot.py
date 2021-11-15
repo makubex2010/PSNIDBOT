@@ -31,33 +31,11 @@ def start(bot, update):
 def helpmsg(bot, update):
     sendMsg(bot, update, '發送或回覆 /id 搜索他人的PSNID /change更改您的PSNID')
 
-def searchid(bot, update):
-        try:
-                msg = ''.join(args)
-                if(len(msg) > 0):
-                        msg = msg[1:]
-                        psnid = mysql.searchname(msg)
-                else:
-                        user = update.message.reply_to_message.from_user
-                        psnid = mysql.searchindb(user.id)
-                whose = 'ID: '
-        except:
-                user = update.message.from_user
-                psnid = mysql.searchindb(user.id)
-                whose = '你的PSNID是: '
-        if(liveid == -1):
-                psnid = 'Not define'
-                msgid = update.message.message_id
-                replyMsg(bot, update, str(whose) + str(psnid)
-#        delmsg(bot, update)
-        _thread.start_new_thread(delmsg,(bot,update) )
 
 start_handler = CommandHandler('start',start)
 help_handler = CommandHandler('help',helpmsg)
-search_handler = CommandHandler('id',searchid, pass_args = True)
 
 dispatcher.add_handler(start_handler)
-dispatcher.add_handler(search_handler)
 dispatcher.add_handler(help_handler)
 
 updater.start_polling()

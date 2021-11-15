@@ -12,7 +12,7 @@ def connectDB(cmd):
         return data
 
 def inserttodb(userid, psnid, username = None):
-        cmd = "INSERT INTO PlayStationNetworkID(userid,liveid,username)VALUES(%d,'%s','%s')" \
+        cmd = "INSERT INTO PlayStationNetworkID(userid,psnid,username)VALUES(%d,'%s','%s')" \
         % (userid, pymysql.escape_string(psnid), pymysql.escape_string(username))
         connectDB(cmd)
 

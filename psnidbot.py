@@ -18,12 +18,6 @@ def replyMsg(update, context, msg):
 def sendMsg(update, context, msg):
     context.bot.sendMessage(chat_id=update.message.chat_id, text = msg)
 
-def delmsg(bot, update):
-    time.sleep(10)
-    try:
-        bot.delete_message(update.message.chat_id, update.message.message_id + 1)
-    except:
-        pass
 
 def start(bot, update):
     sendMsg(bot, update, '如果您需要幫助，請使用 /help')

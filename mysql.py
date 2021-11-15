@@ -10,29 +10,3 @@ def connectDB(cmd):
         db.commit()
         db.close()
         return data
-
-def inserttodb(userid, psnid, username = None):
-        cmd = "INSERT INTO PlayStationNetworkID(userid,psnid,username)VALUES(%d,'%s','%s')" \
-        % (userid, pymysql.escape_string(psnid), pymysql.escape_string(username))
-        connectDB(cmd)
-
-def changeondb(userid, psnid, username = None):
-        cmd = "UPDATE PlayStationNetworkID set psnid='%s' WHERE userid=%d" % (pymysql.escape_string(psnid), userid)
-        cmd2 = "UPDATE PlayStationNetworkID set username='%s' WHERE userid=%d" % (pymysql.escape_string(username), userid)
-        connectDB(cmd)
-        connectDB(cmd2)
-
-def searchname(username):
-        cmd = "SELECT psnid FROM PlayStationNetworkID WHERE username='%s'" % username
-        data = connectDB(cmd)
-        data = ''.join(data)
-        return data
-
-def searchindb(userid):
-        cmd = "SELECT psnid FROM PlayStationNetworkID WHERE userid=%d" % userid
-        data = connectDB(cmd)
-        try:
-                data = ''.join(data)
-        except:
-                data = -1
-        return data

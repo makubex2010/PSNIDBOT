@@ -47,17 +47,20 @@ def searchid(bot, update):
                 whose = '你的PSNID是: '
         if(liveid == -1):
                 psnid = 'Not define'
-        msgid = update.message.message_id
-        replyMsg(bot, update, str(whose) + str(psnid)
+                msgid = update.message.message_id
+                replyMsg(bot, update, str(whose) + str(psnid)
+#        delmsg(bot, update)
+        _thread.start_new_thread(delmsg,(bot,update) )
+
 
                  
-def changeid(bot, update):
+def changeid(bot, update, args):
         userid = update.message.from_user.id
         msgid = update.message.message_id
         username = update.message.from_user.username
         msg = ' '.join(args)
         if(len(msg) <= 0):
-                replyMsg(bot, update, '請告訴我你的新PSNID')
+                replyMsg(bot, update, 'Please tell me your new id')
                 return
         if(mysql.searchindb(userid) != -1):
                 mysql.changeondb(userid, msg, username)
@@ -65,7 +68,8 @@ def changeid(bot, update):
         else:
                 mysql.inserttodb(userid, msg, username)
                 replyMsg(bot, update, 'changed')
-
+#        delmsg(bot, update)
+        _thread.start_new_thread(delmsg,(bot,update) )
 
 updater.dispatcher.add_handler(CommandHandler('start', start))
 updater.dispatcher.add_handler(CommandHandler('id',searchid, pass_args = True))

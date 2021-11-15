@@ -42,7 +42,7 @@ def add(update, context):
 
 def list_items(update, context):
     chat_id = update["message"]["chat"]["id"]
-    _list = todo_list.find_one({'chat_id' : chat_id})
+    list = todo_list.find_one({'chat_id' : chat_id})
     text = ""
     for index, item in enumerate(_list["todo_list"]):
         text += str(index + 1) + "- " + item + "\n"

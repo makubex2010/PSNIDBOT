@@ -31,7 +31,7 @@ def start(bot, update):
     sendMsg(bot, update, '如果您需要幫助，請使用 /help')
 
 def helpmsg(bot, update):
-    sendMsg(bot, update, '發送 /add 添加PSNID')
+    sendMsg(bot, update, '發送 /add 添加PSNID'或 /list 查詢名單)
 
 def add(update, context):
     chat_id = update["message"]["chat"]["id"]
@@ -46,6 +46,7 @@ def list_items(update, context):
     for index, item in enumerate(_list["todo_list"]):
         text += str(index + 1) + "- " + item + "\n"
     update.message.reply_text(text)
+
 
 start_handler = CommandHandler('start',start)
 help_handler = CommandHandler('help',helpmsg)

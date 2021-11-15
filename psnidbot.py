@@ -11,9 +11,10 @@ from telegram.ext import Updater
 from telegram.ext import CommandHandler
 
 updater = Updater(token="2132340913:AAGeFSdbISuDcCAZB3q42PXtFfojjB2j1O8")
-MONGODB_CLIENT = 'mongodb+srv://makubex2010:306578@cluster0.kjrdp.mongodb.net/psnid?retryWrites=true&w=majority'
-DB_NAME = 'psnid'
-COLLECTION_NAME = 'PSNID'
+MONGODB_CLIENT = 'mongodb+srv://makubex2010:306578@cluster0.kjrdp.mongodb.net/
+DB_NAME = 'Cluster0'
+COLLECTION_NAME = 'PSNID.db'
+'
 
 
 client = pymongo.MongoClient(MONGODB_CLIENT)

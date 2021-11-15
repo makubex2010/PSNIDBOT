@@ -31,7 +31,7 @@ def start(bot, update):
     sendMsg(bot, update, '如果您需要幫助，請使用 /help')
 
 def helpmsg(bot, update):
-    sendMsg(bot, update, '發送 /add 添加PSNID'或 /list 查詢名單)
+    sendMsg(bot, update, '發送 /add 添加PSNID 或 /list 查詢名單')
 
 def add(update, context):
     chat_id = update["message"]["chat"]["id"]

@@ -9,6 +9,15 @@ from telegram.ext import Updater
 from telegram.ext import CommandHandler
 
 updater = Updater(token="2132340913:AAGeFSdbISuDcCAZB3q42PXtFfojjB2j1O8")
+MONGODB_CLIENT = 'mongodb+srv://makubex2010:306578@cluster0.kjrdp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+DB_NAME = 'myFirstDatabase'
+COLLECTION_NAME = 'PSNID'
+
+
+client = pymongo.MongoClient(MONGODB_CLIENT)
+db = client[DB_NAME]
+todo_list = db[COLLECTION_NAME]
+
 dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
@@ -23,65 +32,30 @@ def start(bot, update):
     sendMsg(bot, update, '如果您需要幫助，請使用 /help')
 
 def helpmsg(bot, update):
-    sendMsg(bot, update, '發送或回覆 /id 搜索他人的PSNID /change更改您的PSNID')
+    sendMsg(bot, update, '發送 /add 添加PSNID')
 
-@dp.message_handler(commands=['id'])
-async def get_all_messages(message: types.Message):
-    user = message.from_user
-    last_input = mysql.get("users", "last_input", user.id)
-    user_notes = eval(mysql.get("users", "notes", user.id))
-    user_input_status = eval(mysql.get("users", "input_status", user.id))
-    note_kb    = ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
+def add(update, context):
+    chat_id = update["message"]["chat"]["id"]
+    text = " ".join(update["message"]["text"].split(' ')[1:])
+    todo_list.find_one_and_update({'chat_id' : chat_id}, {"$push": {"todo_list": text}})
+    update.message.reply_text("你的PSNID添加！")
 
-    if not user_input_status["name_input"] and not user_input_status["description_input"]:
-        if message.text == "[添加備註]":
-            user_input_status["name_input"] = True
-            mysql.set("users", "input_status", user.id, str(user_input_status))
-            await message.reply("為你的筆記寫一個名字。")
-            return
-
-        if user_notes != {}:
-            
-            for note in user_notes.keys():
-                if note not in message.text:
-                    note_kb.add(KeyboardButton(f"{note} | {user_notes[note]['date']}"))
-                else:
-                    await message.reply(user_notes[note]["description"])
-                    return
-            note_kb.add(KeyboardButton("[添加備註]"))
-                    
-            await message.reply(f'這些都是你的筆記。 隨你挑。', reply_markup = note_kb)
-
-        else:
-            note_kb.add(KeyboardButton("[添加備註]"))
-        
-            await message.reply(f"你沒有任何筆記...", reply_markup = note_kb)
-    else:
-        if user_input_status["description_input"]:
-            user_notes[last_input] = {"description" : message.text, "date": str(message.date)}
-            mysql.set('users', 'notes', user.id, str(user_notes))
-            user_input_status = {"name_input": False, "description_input": False}
-            mysql.set('users', 'input_status', user.id, str(user_input_status))
-
-            for note in user_notes.keys():
-                note_kb.add(KeyboardButton(f"{note} | {user_notes[note]['date']}"))
-
-            note_kb.add(KeyboardButton("[添加備註]"))
-
-            await message.reply(f"筆記已保存！", reply_markup = note_kb)
-            return
-    
-        if user_input_status["name_input"]:
-            mysql.set('users', 'last_input', user.id, message.text)
-            user_input_status["description_input"] = True
-            mysql.set('users', 'input_status', user.id, str(user_input_status))
-            await message.reply(f"筆記的線框已經創建，現在是時候編寫筆記本身了。")
-            return
+def list_items(update, context):
+    chat_id = update["message"]["chat"]["id"]
+    _list = todo_list.find_one({'chat_id' : chat_id})
+    text = ""
+    for index, item in enumerate(_list["todo_list"]):
+        text += str(index + 1) + "- " + item + "\n"
+    update.message.reply_text(text)
 
 start_handler = CommandHandler('start',start)
 help_handler = CommandHandler('help',helpmsg)
+add_handler = CommandHandler('add',add)
+list_handler = CommandHandler('list',list_items)
 
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(help_handler)
+dispatcher.add_handler(add_handler)
+dispatcher.add_handler(list_handler)
 
 updater.start_polling()

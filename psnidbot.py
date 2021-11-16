@@ -11,6 +11,7 @@ from telegram.ext import CommandHandler
 admins = []
 rolllist = []
 rollid = 100
+args = pass_args
 updater = Updater(token="2132340913:AAGeFSdbISuDcCAZB3q42PXtFfojjB2j1O8")
 dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)

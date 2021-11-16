@@ -70,7 +70,7 @@ def searchid(update, context):
         msgid = update.message.message_id
         replyMsg(bot, update, str(whose) + str(psnid))
 #        delmsg(update, context)
-        _thread.start_new_thread(delmsg,(bot,update) )
+        _thread.start_new_thread(delmsg,(update, context )
 
 def changeid(update, context):
         userid = update.message.from_user.id
@@ -87,7 +87,7 @@ def changeid(update, context):
                 mysql.inserttodb(userid, msg, username)
                 replyMsg(update, context, '更改完成')
 #        delmsg(update, context)
-        _thread.start_new_thread(delmsg,(bot,update) )
+        _thread.start_new_thread(delmsg,(update, context) )
 
 def createRoll(update, context):
     global rolllist

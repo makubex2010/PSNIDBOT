@@ -110,7 +110,7 @@ def rollList(update, context):
     Rlist = 'Rollid\t\t\tTitle\t\t\tWinner'
     for rollobj in rolllist:
         Rlist += '\n' + str(rollobj.rollid) + '\t' + rollobj.title + '\t' + rollobj.closetime + '\t' + rollobj.winner
-    sendMsg(bot, update ,Rlist)
+    sendMsg(update, context, Rlist)
 
 def joinRoll(update, context):
     for a in rolllist:

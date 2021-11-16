@@ -17,9 +17,9 @@ class Roll(threading.Thread):
         self.user = []
         self.winner = 'Nobody'
 
-    def JoinRoll(arg):
+    def JoinRoll(args):
         if(arg not in self.user):
-            self.user.append(arg)
+            self.user.append(args)
 
     def run(self):
         self.closetime = time.strftime(

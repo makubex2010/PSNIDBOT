@@ -3,13 +3,13 @@
 import pymysql
 
 def connectDB(cmd): 
-         config={
+         config = {
      "host":"us-cdbr-east-04.cleardb.com",
      "user":"be3f72595e2b4f",
      "password":"1b092851",
      "database":"heroku_aa93acde8a5d2ff"
   }
-        db = pymysql.connect(config)
+        db = pymysql.connect(**config)
         cursor = db.cursor()
         cursor.execute(cmd)
         results = cursor.fetchall()

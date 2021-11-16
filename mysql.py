@@ -3,7 +3,7 @@
 import pymysql
 
 def connectDB(cmd): 
-        db = "mysql://u0oumepy212w7hrd:lmhzodresmb5a1dr@s465z7sj4pwhp7fn.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/wagjozo03g4tc27f"
+        db = "mysql://be3f72595e2b4f:1b092851@us-cdbr-east-04.cleardb.com/heroku_aa93acde8a5d2ff?reconnect=true"
         cursor = db.cursor()
         cursor.execute(cmd)
         data = cursor.fetchone()

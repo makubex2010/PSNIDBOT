@@ -51,7 +51,7 @@ def start(update, context):
 def helpmsg(update, context):
     sendMsg(update, context, '發送或回覆 /id 搜索他人的 PsnID\n/change 可更改以您的 PsnID')
     
-def searchid(update, context, args):
+def searchid(update, context, msg):
         try:
                 msg = ''.join(args)
                 if(len(msg) > 0):
@@ -72,7 +72,7 @@ def searchid(update, context, args):
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot,update) )
 
-def changeid(update, context, args):
+def changeid(update, context, msg):
         userid = update.message.from_user.id
         msgid = update.message.message_id
         username = update.message.from_user.username
@@ -89,7 +89,7 @@ def changeid(update, context, args):
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot,update) )
 
-def createRoll(update, context, args):
+def createRoll(update, context, msg):
     global rolllist
     global rollid
     if(isAdmin(bot, update)):
@@ -112,7 +112,7 @@ def rollList(update, context):
         Rlist += '\n' + str(rollobj.rollid) + '\t' + rollobj.title + '\t' + rollobj.closetime + '\t' + rollobj.winner
     sendMsg(bot, update ,Rlist)
 
-def joinRoll(bupdate, context, args):
+def joinRoll(bupdate, context, msg):
     for a in rolllist:
         if(str(a.rollid) == args[0]):
             if(update.message.from_user.username != ''):

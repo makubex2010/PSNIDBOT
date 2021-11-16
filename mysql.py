@@ -6,7 +6,7 @@ def connectDB(cmd):
         db = pymysql.connect("us-cdbr-east-04.cleardb.com", "be3f72595e2b4f", "1b092851", "heroku_aa93acde8a5d2ff" )
         cursor = db.cursor()
         cursor.execute(cmd)
-        results = cursor.fetchall()
+        data = cursor.fetchall()
         db.commit()
         db.close()
         return data

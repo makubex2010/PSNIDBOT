@@ -3,7 +3,8 @@
 import pymysql
 
 def connectDB(cmd): 
-        db = pymysql.connect("us-cdbr-east-04.cleardb.com", "be3f72595e2b4f", "1b092851", "heroku_aa93acde8a5d2ff", charset='utf8')
+        config = "us-cdbr-east-04.cleardb.com", "be3f72595e2b4f", "1b092851", "heroku_aa93acde8a5d2ff", charset='utf8'
+        db = pymysql.connect(**config)
         cursor = db.cursor()
         cursor.execute(cmd)
         results = cursor.fetchall()

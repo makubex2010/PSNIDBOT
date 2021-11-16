@@ -18,8 +18,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 def replyMsg(update, context, msg):
     context.bot.sendMessage(chat_id=update.message.chat_id, reply_to_message_id = update.message.message_id, text = msg)
 
-def sendMsg(update, context, msg):
-    context.bot.sendMessage(chat_id=update.message.chat_id, text = msg)
+def sendMsg(update, context, args):
+    context.bot.sendMessage(chat_id=update.message.chat_id, text = args)
 
 def delmsg(update, context):
     time.sleep(10)
@@ -51,7 +51,7 @@ def start(update, context):
 def helpmsg(update, context):
     sendMsg(update, context, '發送或回覆 /id 搜索他人的 PsnID\n/change 可更改以您的 PsnID')
     
-def searchid(update, context, msg):
+def searchid(update, context, args):
         try:
                 msg = ''.join(args)
                 if(len(msg) > 0):
@@ -72,7 +72,7 @@ def searchid(update, context, msg):
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot,update) )
 
-def changeid(update, context, msg):
+def changeid(update, context, args):
         userid = update.message.from_user.id
         msgid = update.message.message_id
         username = update.message.from_user.username
@@ -89,7 +89,7 @@ def changeid(update, context, msg):
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot,update) )
 
-def createRoll(update, context, msg):
+def createRoll(update, context, args):
     global rolllist
     global rollid
     if(isAdmin(bot, update)):
@@ -112,7 +112,7 @@ def rollList(update, context):
         Rlist += '\n' + str(rollobj.rollid) + '\t' + rollobj.title + '\t' + rollobj.closetime + '\t' + rollobj.winner
     sendMsg(bot, update ,Rlist)
 
-def joinRoll(bupdate, context, msg):
+def joinRoll(bupdate, context, args):
     for a in rolllist:
         if(str(a.rollid) == args[0]):
             if(update.message.from_user.username != ''):

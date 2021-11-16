@@ -26,7 +26,7 @@ def start(bot, update):
 def helpmsg(bot, update):
     sendMsg(bot, update, '發送或回覆 /id 搜索他人的 PsnID\n/change 可更改以您的 PsnID')
     
-def searchid(update, context):
+def searchid(update, context, args):
         try:
                 msg = ''.join(args)
                 if(len(msg) > 0):
@@ -47,7 +47,7 @@ def searchid(update, context):
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot,update) )
 
-def changeid(update, context):
+def changeid(update, context, args):
         userid = update.message.from_user.id
         msgid = update.message.message_id
         username = update.message.from_user.username
@@ -64,12 +64,54 @@ def changeid(update, context):
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot,update) )
 
+def createRoll(update, context, args):
+    global rolllist
+    global rollid
+    if(isAdmin(bot, update)):
+        if(len(args) < 2):
+            sendMsg(bot, update, '輸入錯誤')
+        else:
+            try:
+                rolllist.append(Roll(rollid, args[0], float(args[1])))
+                sendMsg(bot, update, '全部完成，/rolllist 查看滾動列表')
+                rollid = rollid + 1
+                rolllist[-1].start()
+            except:
+                sendMsg(bot, update, '因未知錯誤而失敗！')
+            
+def rollList(update, context):
+    global rolllist
+    global rollid
+    Rlist = 'Rollid\t\t\tTitle\t\t\tWinner'
+    for rollobj in rolllist:
+        Rlist += '\n' + str(rollobj.rollid) + '\t' + rollobj.title + '\t' + rollobj.closetime + '\t' + rollobj.winner
+    sendMsg(bot, update ,Rlist)
 
+def joinRoll(update, context, args):
+    for a in rolllist:
+        if(str(a.rollid) == args[0]):
+            if(update.message.from_user.username != ''):
+                a.user.append(update.message.from_user.username)
+                sendMsg(bot, update, "You've joined")
+                return 0
+            else:
+                sendMsg(bot, update, "好像沒有你的用戶名")
+                return -1
+            sendMsg(bot, update, '發生錯誤')
+    
 start_handler = CommandHandler('start',start)
-search_handler = CommandHandler('id',searchid)
-change_handler = CommandHandler('change',changeid)
+createRoll_handler = CommandHandler('createRoll',createRoll, pass_args = True)
+rollList_handler = CommandHandler('RollList',rollList)
+joinRoll_handler = CommandHandler('join',joinRoll, pass_args = True)
+search_handler = CommandHandler('id',searchid, pass_args = True)
+change_handler = CommandHandler('change',changeid, pass_args = True)
 help_handler = CommandHandler('help',helpmsg)
+setAdmins_handler = CommandHandler('setadmins', setAdmins)
 
+dispatcher.add_handler(joinRoll_handler)
+dispatcher.add_handler(setAdmins_handler)
+dispatcher.add_handler(rollList_handler)
+dispatcher.add_handler(createRoll_handler)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(search_handler)
 dispatcher.add_handler(change_handler)

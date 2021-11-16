@@ -1,4 +1,5 @@
 #! /usr/bin/python3
+import random, os
 import _thread
 import threading
 import time
@@ -6,7 +7,6 @@ import logging
 import mysql
 from Roll import Roll
 from telegram.ext import Updater, CommandHandler
-from telegram import Bot
 
 admins = []
 rolllist = []

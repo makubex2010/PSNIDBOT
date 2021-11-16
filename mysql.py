@@ -6,7 +6,7 @@ def connectDB(cmd):
         db = "mysql://be3f72595e2b4f:1b092851@us-cdbr-east-04.cleardb.com/heroku_aa93acde8a5d2ff?reconnect=true"
         cursor = db.cursor()
         cursor.execute(cmd)
-        data = cursor.fetchone()
+        results = cursor.fetchall()
         db.commit()
         db.close()
         return data

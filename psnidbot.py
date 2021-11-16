@@ -125,11 +125,11 @@ def joinRoll(update, context, args):
             sendMsg(update, context, '發生錯誤')
     
 start_handler = CommandHandler('start',start)
-createRoll_handler = CommandHandler('createRoll',createRoll, args = True)
+createRoll_handler = CommandHandler('createRoll',createRoll, pass_args = True)
 rollList_handler = CommandHandler('RollList',rollList)
-joinRoll_handler = CommandHandler('join',joinRoll, args = True)
-search_handler = CommandHandler('id',searchid, args = True)
-change_handler = CommandHandler('change',changeid, args = True)
+joinRoll_handler = CommandHandler('join',joinRoll, pass_args = True)
+search_handler = CommandHandler('id',searchid, pass_args = True)
+change_handler = CommandHandler('change',changeid, pass_args = True)
 help_handler = CommandHandler('help',helpmsg)
 setAdmins_handler = CommandHandler('setadmins', setAdmins)
 

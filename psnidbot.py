@@ -38,10 +38,10 @@ def isAdmin(update, context):
         sendMsg(bot, update, "你沒有權限")
         return 0
 
-def start(bot, update):
+def start(update, context):
     sendMsg(bot, update, '如果您需要幫助，請使用 /help')
 
-def helpmsg(bot, update):
+def helpmsg(update, context):
     sendMsg(bot, update, '發送或回覆 /id 搜索他人的 PsnID\n/change 可更改以您的 PsnID')
     
 def searchid(update, context, args):
@@ -65,7 +65,7 @@ def searchid(update, context, args):
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot,update) )
 
-def changeid(bot, update, args):
+def changeid(update, context, args):
         userid = update.message.from_user.id
         msgid = update.message.message_id
         username = update.message.from_user.username
@@ -82,7 +82,7 @@ def changeid(bot, update, args):
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot,update) )
 
-def createRoll(bot, update, args):
+def createRoll(update, context, args):
     global rolllist
     global rollid
     if(isAdmin(bot, update)):
@@ -97,7 +97,7 @@ def createRoll(bot, update, args):
             except:
                 sendMsg(bot, update, '因未知錯誤而失敗！')
             
-def rollList(bot, update):
+def rollList(update, context):
     global rolllist
     global rollid
     Rlist = 'Rollid\t\t\tTitle\t\t\tWinner'
@@ -105,7 +105,7 @@ def rollList(bot, update):
         Rlist += '\n' + str(rollobj.rollid) + '\t' + rollobj.title + '\t' + rollobj.closetime + '\t' + rollobj.winner
     sendMsg(bot, update ,Rlist)
 
-def joinRoll(bot, update, args):
+def joinRoll(bupdate, context, args):
     for a in rolllist:
         if(str(a.rollid) == args[0]):
             if(update.message.from_user.username != ''):

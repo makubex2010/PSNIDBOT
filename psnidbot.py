@@ -15,16 +15,16 @@ updater = Updater(token="2132340913:AAGeFSdbISuDcCAZB3q42PXtFfojjB2j1O8")
 dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-def replyMsg(bot, update, msg):
-    bot.sendMessage(chat_id=update.message.chat_id, reply_to_message_id = update.message.message_id, text = msg)
+def replyMsg(update, context, msg):
+    context.bot.sendMessage(chat_id=update.message.chat_id, reply_to_message_id = update.message.message_id, 'msg')
 
-def sendMsg(bot, update, msg):
-    bot.sendMessage(chat_id=update.message.chat_id, text = msg)
+def sendMsg(update, context, msg):
+    context.bot.sendMessage(chat_id=update.message.chat_id, 'msg')
 
-def delmsg(bot, update):
+def delmsg(update, context):
     time.sleep(10)
     try:
-        bot.delete_message(update.message.chat_id, update.message.message_id + 1)
+        context.bot.delete_message(update.message.chat_id, update.message.message_id + 1)
     except:
         pass
  
@@ -124,22 +124,14 @@ def joinRoll(bot, update, args):
                 return -1
             sendMsg(bot, update, '發生錯誤')
     
-start_handler = CommandHandler('start',start)
-createRoll_handler = CommandHandler('createRoll',createRoll, pass_args = True)
-rollList_handler = CommandHandler('RollList',rollList)
-joinRoll_handler = CommandHandler('join',joinRoll, pass_args = True)
-search_handler = CommandHandler('id',searchid, pass_args = True)
-change_handler = CommandHandler('change',changeid, pass_args = True)
-help_handler = CommandHandler('help',helpmsg)
-setAdmins_handler = CommandHandler('setadmins', setAdmins)
 
-updater.dispatcher.add_handler(joinRoll_handler)
-updater.dispatcher.add_handler(setAdmins_handler)
-updater.dispatcher.add_handler(rollList_handler)
-updater.dispatcher.add_handler(createRoll_handler)
-updater.dispatcher.add_handler(start_handler)
-updater.dispatcher.add_handler(search_handler)
-updater.dispatcher.add_handler(change_handler)
-updater.dispatcher.add_handler(help_handler)
+updater.dispatcher.add_handler(CommandHandler('start', start))
+updater.dispatcher.add_handler(CommandHandler('createRoll',createRoll, pass_args = True))
+updater.dispatcher.add_handler(CommandHandler('RollList',rollList))
+updater.dispatcher.add_handler(CommandHandler('join',joinRoll, pass_args = True))
+updater.dispatcher.add_handler(CommandHandler('id',searchid, pass_args = True))
+updater.dispatcher.add_handler(CommandHandler('change',changeid, pass_args = True))
+updater.dispatcher.add_handler(CommandHandler('help',helpmsg))
+updater.dispatcher.add_handler(CommandHandler('setadmins', setAdmins))
 
 updater.start_polling()

@@ -15,16 +15,16 @@ updater = Updater(token="2132340913:AAGeFSdbISuDcCAZB3q42PXtFfojjB2j1O8")
 dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-def replyMsg(update, context, msg):
-    context.bot.sendMessage(chat_id=update.message.chat_id, reply_to_message_id = update.message.message_id, text = msg)
+def replyMsg(bot, update, msg):
+    bot.sendMessage(chat_id=update.message.chat_id, reply_to_message_id = update.message.message_id, text = msg)
 
-def sendMsg(update, context, msg):
-    context.bot.sendMessage(chat_id=update.message.chat_id, text = msg)
+def sendMsg(bot, update, msg):
+    bot.sendMessage(chat_id=update.message.chat_id, text = msg)
 
-def delmsg(update, context):
+def delmsg(bot, update):
     time.sleep(10)
     try:
-        context.bot.delete_message(update.message.chat_id, update.message.message_id + 1)
+        bot.delete_message(update.message.chat_id, update.message.message_id + 1)
     except:
         pass
  

@@ -9,7 +9,7 @@ def connectDB(cmd):
      "password":"1b092851",
      "database":"heroku_aa93acde8a5d2ff"
   }
-        db = pymysql.connect(**config)
+        db = pymysql.connect(config)
         cursor = db.cursor()
         cursor.execute(cmd)
         results = cursor.fetchall()

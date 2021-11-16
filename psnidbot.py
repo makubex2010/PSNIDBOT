@@ -16,10 +16,10 @@ dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 def replyMsg(update, context, msg):
-    context.bot.sendMessage(chat_id=update.message.chat_id, reply_to_message_id = update.message.message_id, 'msg')
+    context.bot.sendMessage(chat_id=update.message.chat_id, reply_to_message_id = update.message.message_id, text = msg)
 
 def sendMsg(update, context, msg):
-    context.bot.sendMessage(chat_id=update.message.chat_id, 'msg')
+    context.bot.sendMessage(chat_id=update.message.chat_id, text = msg)
 
 def delmsg(update, context):
     time.sleep(10)

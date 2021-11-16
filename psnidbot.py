@@ -53,7 +53,7 @@ def helpmsg(update, context):
     
 def searchid(update, context):
         try:
-                msg = ''.join(data)
+                msg = ''.join(args)
                 if(len(msg) > 0):
                         msg = msg[1:]
                         psnid = mysql.searchname(msg)
@@ -76,7 +76,7 @@ def changeid(update, context):
         userid = update.message.from_user.id
         msgid = update.message.message_id
         username = update.message.from_user.username
-        msg = ' '.join(data)
+        msg = ' '.join(args)
         if(len(msg) <= 0):
                 replyMsg(update, context, '請告訴我你的新ID')
                 return

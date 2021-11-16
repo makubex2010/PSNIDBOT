@@ -51,7 +51,7 @@ def start(update, context):
 def helpmsg(update, context):
     sendMsg(update, context, '發送或回覆 /id 搜索他人的 PsnID\n/change 可更改以您的 PsnID')
     
-def searchid(update, context):
+def searchid(update, context, args):
         try:
                 msg = ''.join(args)
                 if(len(msg) > 0):
@@ -72,7 +72,7 @@ def searchid(update, context):
 #        delmsg(update, context)
         _thread.start_new_thread(delmsg,(bot, update) )
 
-def changeid(update, context):
+def changeid(update, context, args):
         userid = update.message.from_user.id
         msgid = update.message.message_id
         username = update.message.from_user.username
@@ -89,7 +89,7 @@ def changeid(update, context):
 #        delmsg(update, context)
         _thread.start_new_thread(delmsg,(bot, update) )
 
-def createRoll(update, context):
+def createRoll(update, context, args):
     global rolllist
     global rollid
     if(isAdmin(update, context)):
@@ -112,7 +112,7 @@ def rollList(update, context):
         Rlist += '\n' + str(rollobj.rollid) + '\t' + rollobj.title + '\t' + rollobj.closetime + '\t' + rollobj.winner
     sendMsg(bot, update ,Rlist)
 
-def joinRoll(bupdate, context):
+def joinRoll(update, context, args):
     for a in rolllist:
         if(str(a.rollid) == args[0]):
             if(update.message.from_user.username != ''):
@@ -125,11 +125,11 @@ def joinRoll(bupdate, context):
             sendMsg(update, context, '發生錯誤')
     
 start_handler = CommandHandler('start',start)
-createRoll_handler = CommandHandler('createRoll',createRoll, pass_args = True)
+createRoll_handler = CommandHandler('createRoll',createRoll, args = True)
 rollList_handler = CommandHandler('RollList',rollList)
-joinRoll_handler = CommandHandler('join',joinRoll, pass_args = True)
-search_handler = CommandHandler('id',searchid, pass_args = True)
-change_handler = CommandHandler('change',changeid, pass_args = True)
+joinRoll_handler = CommandHandler('join',joinRoll, args = True)
+search_handler = CommandHandler('id',searchid, args = True)
+change_handler = CommandHandler('change',changeid, args = True)
 help_handler = CommandHandler('help',helpmsg)
 setAdmins_handler = CommandHandler('setadmins', setAdmins)
 

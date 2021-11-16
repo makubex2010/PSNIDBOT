@@ -11,6 +11,7 @@ from telegram.ext import CommandHandler
 admins = []
 rolllist = []
 rollid = 100
+args = vars(ap.parse_args())
 updater = Updater(token="2132340913:AAGeFSdbISuDcCAZB3q42PXtFfojjB2j1O8")
 dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -18,8 +19,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 def replyMsg(update, context, msg):
     context.bot.sendMessage(chat_id=update.message.chat_id, reply_to_message_id = update.message.message_id, text = msg)
 
-def sendMsg(update, context, args):
-    context.bot.sendMessage(chat_id=update.message.chat_id, text = args)
+def sendMsg(update, context, msg):
+    context.bot.sendMessage(chat_id=update.message.chat_id, text = msg)
 
 def delmsg(update, context):
     time.sleep(10)
@@ -51,7 +52,7 @@ def start(update, context):
 def helpmsg(update, context):
     sendMsg(update, context, '發送或回覆 /id 搜索他人的 PsnID\n/change 可更改以您的 PsnID')
     
-def searchid(update, context):
+def searchid(update, context, args):
         try:
                 msg = ''.join(args)
                 if(len(msg) > 0):
@@ -72,7 +73,7 @@ def searchid(update, context):
 #        delmsg(update, context)
         _thread.start_new_thread(delmsg,(bot, update) )
 
-def changeid(update, context):
+def changeid(update, context, args):
         userid = update.message.from_user.id
         msgid = update.message.message_id
         username = update.message.from_user.username
@@ -89,7 +90,7 @@ def changeid(update, context):
 #        delmsg(update, context)
         _thread.start_new_thread(delmsg,(bot, update) )
 
-def createRoll(update, context):
+def createRoll(update, context, args):
     global rolllist
     global rollid
     if(isAdmin(update, context)):
@@ -112,7 +113,7 @@ def rollList(update, context):
         Rlist += '\n' + str(rollobj.rollid) + '\t' + rollobj.title + '\t' + rollobj.closetime + '\t' + rollobj.winner
     sendMsg(bot, update ,Rlist)
 
-def joinRoll(bupdate, context):
+def joinRoll(bupdate, context, args):
     for a in rolllist:
         if(str(a.rollid) == args[0]):
             if(update.message.from_user.username != ''):

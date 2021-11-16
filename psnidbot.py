@@ -21,28 +21,35 @@ def replyMsg(update, context, msg):
 def sendMsg(update, context, msg):
     context.bot.sendMessage(chat_id=update.message.chat_id, text = msg)
 
+def delmsg(update, context):
+    time.sleep(10)
+    try:
+        bot.delete_message(update.message.chat_id, update.message.message_id + 1)
+    except:
+        pass
+ 
 def setAdmins(update, context):
     if(update.message.from_user.id == 894575091):  #Bot Admin's userid
         adm = update.message.chat.get_administrators()
         for a in adm:
             admins.append(a.user.id)
-        sendMsg(bot, update, '完畢')
+        sendMsg(update, context, '完畢')
     else:
-        sendMsg(bot, update, "你沒有權限")
+        sendMsg(update, context, "你沒有權限")
 
 
 def isAdmin(update, context):
     if(update.message.from_user.id in admins):
         return 1
     else:
-        sendMsg(bot, update, "你沒有權限")
+        sendMsg(update, context, "你沒有權限")
         return 0
 
 def start(update, context):
-    sendMsg(bot, update, '如果您需要幫助，請使用 /help')
+    sendMsg(update, context, '如果您需要幫助，請使用 /help')
 
 def helpmsg(update, context):
-    sendMsg(bot, update, '發送或回覆 /id 搜索他人的 PsnID\n/change 可更改以您的 PsnID')
+    sendMsg(update, context, '發送或回覆 /id 搜索他人的 PsnID\n/change 可更改以您的 PsnID')
     
 def searchid(update, context, args):
         try:
@@ -71,14 +78,14 @@ def changeid(update, context, args):
         username = update.message.from_user.username
         msg = ' '.join(args)
         if(len(msg) <= 0):
-                replyMsg(bot, update, '請告訴我你的新ID')
+                replyMsg(update, context, '請告訴我你的新ID')
                 return
         if(mysql.searchindb(userid) != -1):
                 mysql.changeondb(userid, msg, username)
-                replyMsg(bot, update, '更新')
+                replyMsg(update, context, '更新')
         else:
                 mysql.inserttodb(userid, msg, username)
-                replyMsg(bot, update, '更改完成')
+                replyMsg(update, context, '更改完成')
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot,update) )
 
@@ -87,15 +94,15 @@ def createRoll(update, context, args):
     global rollid
     if(isAdmin(bot, update)):
         if(len(args) < 2):
-            sendMsg(bot, update, '輸入錯誤')
+            sendMsg(update, context, '輸入錯誤')
         else:
             try:
                 rolllist.append(Roll(rollid, args[0], float(args[1])))
-                sendMsg(bot, update, '全部完成，/rolllist 查看滾動列表')
+                sendMsg(update, context, '全部完成，/rolllist 查看滾動列表')
                 rollid = rollid + 1
                 rolllist[-1].start()
             except:
-                sendMsg(bot, update, '因未知錯誤而失敗！')
+                sendMsg(update, context, '因未知錯誤而失敗！')
             
 def rollList(update, context):
     global rolllist
@@ -110,12 +117,12 @@ def joinRoll(bupdate, context, args):
         if(str(a.rollid) == args[0]):
             if(update.message.from_user.username != ''):
                 a.user.append(update.message.from_user.username)
-                sendMsg(bot, update, "You've joined")
+                sendMsg(update, context, "你已加入")
                 return 0
             else:
-                sendMsg(bot, update, "好像沒有你的用戶名")
+                sendMsg(update, context, "好像沒有你的用戶名")
                 return -1
-            sendMsg(bot, update, '發生錯誤')
+            sendMsg(update, context, '發生錯誤')
     
 start_handler = CommandHandler('start',start)
 createRoll_handler = CommandHandler('createRoll',createRoll, pass_args = True)

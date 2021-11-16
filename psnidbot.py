@@ -21,7 +21,7 @@ def replyMsg(update, context, msg):
 def sendMsg(update, context, msg):
     context.bot.sendMessage(chat_id=update.message.chat_id, text = msg)
 
-def setAdmins(bot, update):
+def setAdmins(update, context):
     if(update.message.from_user.id == 894575091):  #Bot Admin's userid
         adm = update.message.chat.get_administrators()
         for a in adm:
@@ -31,7 +31,7 @@ def setAdmins(bot, update):
         sendMsg(bot, update, "你沒有權限")
 
 
-def isAdmin(bot, update):
+def isAdmin(update, context):
     if(update.message.from_user.id in admins):
         return 1
     else:

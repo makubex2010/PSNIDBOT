@@ -69,7 +69,7 @@ def searchid(update, context):
                 psnid = 'Not define'
         msgid = update.message.message_id
         replyMsg(bot, update, str(whose) + str(psnid))
-#        delmsg(bot, update)
+#        delmsg(update, context)
         _thread.start_new_thread(delmsg,(bot,update) )
 
 def changeid(update, context):
@@ -86,13 +86,13 @@ def changeid(update, context):
         else:
                 mysql.inserttodb(userid, msg, username)
                 replyMsg(update, context, '更改完成')
-#        delmsg(bot, update)
+#        delmsg(update, context)
         _thread.start_new_thread(delmsg,(bot,update) )
 
 def createRoll(update, context):
     global rolllist
     global rollid
-    if(isAdmin(bot, update)):
+    if(isAdmin(update, context)):
         if(len(args) < 2):
             sendMsg(update, context, '輸入錯誤')
         else:

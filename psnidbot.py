@@ -11,7 +11,6 @@ from telegram.ext import CommandHandler
 admins = []
 rolllist = []
 rollid = 100
-args = pass_args
 updater = Updater(token="2132340913:AAGeFSdbISuDcCAZB3q42PXtFfojjB2j1O8")
 dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -126,11 +125,11 @@ def joinRoll(update, context):
             sendMsg(update, context, '發生錯誤')
     
 start_handler = CommandHandler('start',start)
-createRoll_handler = CommandHandler('createRoll',createRoll, pass_args = True)
+createRoll_handler = CommandHandler('createRoll',createRoll, args = True)
 rollList_handler = CommandHandler('RollList',rollList)
-joinRoll_handler = CommandHandler('join',joinRoll, pass_args = True)
-search_handler = CommandHandler('id',searchid, pass_args = True)
-change_handler = CommandHandler('change',changeid, pass_args = True)
+joinRoll_handler = CommandHandler('join',joinRoll, args = True)
+search_handler = CommandHandler('id',searchid, args = True)
+change_handler = CommandHandler('change',changeid, args = True)
 help_handler = CommandHandler('help',helpmsg)
 setAdmins_handler = CommandHandler('setadmins', setAdmins)
 

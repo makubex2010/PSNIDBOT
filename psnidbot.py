@@ -66,7 +66,7 @@ def searchid(bot, update, args):
                 psnid = mysql.searchindb(user.id)
                 whose = '你的PSNID是: '
         if(psnid == -1):
-                psnid = 'Not define'
+                psnid = '-1'
         msgid = update.message.message_id
         replyMsg(bot, update, str(whose) + str(psnid))
 #        delmsg(bot, update)

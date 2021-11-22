@@ -47,7 +47,7 @@ def start(bot, update):
     sendMsg(bot, update, '如果您需要幫助，請使用 /help')
 
 def helpmsg(bot, update):
-    sendMsg(bot, update, '發送@或回覆 /id 搜索他人的 PsnID\n/change 可登記或更改以您的 PsnID')
+    sendMsg(bot, update, '發送@或回覆 /id 搜索他人的 PSNID\n/change 可登記或更改您的 PSNID')
     
 def searchid(bot, update, args):
         try:
@@ -58,7 +58,7 @@ def searchid(bot, update, args):
                 else:
                         user = update.message.reply_to_message.from_user
                         psnid = mysql.searchindb(user.id)
-                whose = '他的ID是: '
+                whose = '他的PSNID是: '
         except:
                 user = update.message.from_user
                 psnid = mysql.searchindb(user.id)
@@ -76,7 +76,7 @@ def changeid(bot, update, args):
         username = update.message.from_user.username
         msg = ' '.join(args)
         if(len(msg) <= 0):
-                replyMsg(bot, update, '請告訴我你的新ID')
+                replyMsg(bot, update, '請告訴我你的PSNID')
                 return
         if(mysql.searchindb(userid) != -1):
                 mysql.changeondb(userid, msg, username)

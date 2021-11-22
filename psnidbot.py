@@ -76,7 +76,7 @@ def changeid(bot, update, args):
         username = update.message.from_user.username
         msg = ' '.join(args)
         if(len(msg) <= 0):
-                replyMsg(bot, update, '請告訴我你的PSNID')
+                replyMsg(bot, update, '請告訴我你的PSNID(例如:/change Azuki_Minaduki)')
                 return
         if(mysql.searchindb(userid) != -1):
                 mysql.changeondb(userid, msg, username)

@@ -1,2 +1,2 @@
 python-telegram-bot===11.1.0
-pymysql===1
+pymysql===1.0.0

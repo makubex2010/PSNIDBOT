@@ -3,7 +3,7 @@
 import pymysql
 
 def connectDB(cmd): 
-        db = pymysql.connect("bb2d60ffa470c9", "9027fcbf", "us-cdbr-east-04.cleardb.com", "heroku_ec10c9bdacf1022", charset='utf8' )
+        db = pymysql.connect("rfrwe8ksy97efx1k", "epawk56f10zxjf9b", "jtb9ia3h1pgevwb1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com", "oyszn9xf2whgmb2j", charset='utf8' )
         cursor = db.cursor()
         cursor.execute(cmd)
         data = cursor.fetchone()
@@ -12,24 +12,24 @@ def connectDB(cmd):
         return data
 
 def inserttodb(userid, psnid, username = None):
-        cmd = "INSERT INTO heroku_ec10c9bdacf1022(userid,psnid,username)VALUES(%d,'%s','%s')" \
+        cmd = "INSERT INTO playstationnetworkid(userid,psnid,username)VALUES(%d,'%s','%s')" \
         % (userid, pymysql.escape_string(psnid), pymysql.escape_string(username))
         connectDB(cmd)
 
 def changeondb(userid, psnid, username = None):
-        cmd = "UPDATE heroku_ec10c9bdacf1022 set psnid='%s' WHERE userid=%d" % (pymysql.escape_string(psnid), userid)
-        cmd2 = "UPDATE heroku_ec10c9bdacf1022 set username='%s' WHERE userid=%d" % (pymysql.escape_string(username), userid)
+        cmd = "UPDATE playstationnetworkid set psnid='%s' WHERE userid=%d" % (pymysql.escape_string(psnid), userid)
+        cmd2 = "UPDATE playstationnetworkid set username='%s' WHERE userid=%d" % (pymysql.escape_string(username), userid)
         connectDB(cmd)
         connectDB(cmd2)
 
 def searchname(username):
-        cmd = "SELECT psnid FROM heroku_ec10c9bdacf1022 WHERE username='%s'" % username
+        cmd = "SELECT psnid FROM playstationnetworkid WHERE username='%s'" % username
         data = connectDB(cmd)
         data = ''.join(data)
         return data
 
 def searchindb(userid):
-        cmd = "SELECT psnid FROM heroku_ec10c9bdacf1022 WHERE userid=%d" % userid
+        cmd = "SELECT psnid FROM playstationnetworkid WHERE userid=%d" % userid
         data = connectDB(cmd)
         try:
                 data = ''.join(data)

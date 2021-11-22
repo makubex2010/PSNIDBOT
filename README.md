@@ -12,5 +12,5 @@ $ pip3 install pymysql
 ```
 ## 啟動
 ```
-$ python3 psnidbo.py
+$ python3 psnidbot.py
 ```

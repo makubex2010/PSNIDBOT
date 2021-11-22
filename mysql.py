@@ -12,24 +12,24 @@ def connectDB(cmd):
         return data
 
 def inserttodb(userid, psnid, username = None):
-        cmd = "INSERT INTO PlayStation-Networkid (userid,psnid,username)VALUES(%d,'%s','%s')" \
+        cmd = "INSERT INTO PlayStationNetworkid(userid,psnid,username)VALUES(%d,'%s','%s')" \
         % (userid, pymysql.escape_string(psnid), pymysql.escape_string(username))
         connectDB(cmd)
 
 def changeondb(userid, psnid, username = None):
-        cmd = "UPDATE PlayStation-Networkid set psnid='%s' WHERE userid=%d" % (pymysql.escape_string(psnid), userid)
-        cmd2 = "UPDATE PlayStation-Networkid set username='%s' WHERE userid=%d" % (pymysql.escape_string(username), userid)
+        cmd = "UPDATE PlayStationNetworkid set psnid='%s' WHERE userid=%d" % (pymysql.escape_string(psnid), userid)
+        cmd2 = "UPDATE PlayStationNetworkid set username='%s' WHERE userid=%d" % (pymysql.escape_string(username), userid)
         connectDB(cmd)
         connectDB(cmd2)
 
 def searchname(username):
-        cmd = "SELECT psnid FROM PlayStation-Networkid WHERE username='%s'" % username
+        cmd = "SELECT psnid FROM PlayStationNetworkid WHERE username='%s'" % username
         data = connectDB(cmd)
         data = ''.join(data)
         return data
 
 def searchindb(userid):
-        cmd = "SELECT psnid FROM PlayStation-Networkid WHERE userid=%d" % userid
+        cmd = "SELECT psnid FROM PlayStationNetworkid WHERE userid=%d" % userid
         data = connectDB(cmd)
         try:
                 data = ''.join(data)

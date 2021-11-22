@@ -3,6 +3,8 @@
 
 PlayStation 同樂會專用的telegram機器人
 
+https://t.me/PlayStation4Tw
+
 ## 需安裝程式
 ```
 $ pip3 install python-telegram-bot

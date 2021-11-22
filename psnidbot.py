@@ -20,7 +20,7 @@ def sendMsg(bot, update, msg):
     bot.sendMessage(chat_id=update.message.chat_id, text = msg)
 
 def delmsg(bot, update):
-    time.sleep(10)
+    time.sleep(600)
     try:
         bot.delete_message(update.message.chat_id, update.message.message_id + 1)
     except:

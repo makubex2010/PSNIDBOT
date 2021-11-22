@@ -49,7 +49,7 @@ def start(bot, update):
     sendMsg(bot, update, '如果您需要幫助，請使用 /help')
 
 def helpmsg(bot, update):
-    sendMsg(bot, update, '發送或回覆 /id 搜索他人的 PsnID\n/change 可更改以您的 PsnID')
+    sendMsg(bot, update, '發送或回覆 /id 搜索他人的 PsnID\n/change 可登記或更改以您的 PsnID')
     
 def searchid(bot, update, args):
         try:
@@ -82,7 +82,7 @@ def changeid(bot, update, args):
                 return
         if(mysql.searchindb(userid) != -1):
                 mysql.changeondb(userid, msg, username)
-                replyMsg(bot, update, '更新')
+                replyMsg(bot, update, '已更新')
         else:
                 mysql.inserttodb(userid, msg, username)
                 replyMsg(bot, update, '更改完成')

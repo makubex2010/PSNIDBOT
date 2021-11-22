@@ -9,8 +9,6 @@ from Roll import Roll
 from telegram.ext import Updater, CommandHandler
 
 admins = []
-rolllist = []
-rollid = 100
 updater = Updater(token="2132340913:AAEo1wKZdu6YMJO4X1Xm5wibIjvwnBRFKzo")
 dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -60,7 +58,7 @@ def searchid(bot, update, args):
                 else:
                         user = update.message.reply_to_message.from_user
                         psnid = mysql.searchindb(user.id)
-                whose = 'ID: '
+                whose = '他的ID是: '
         except:
                 user = update.message.from_user
                 psnid = mysql.searchindb(user.id)
@@ -82,62 +80,21 @@ def changeid(bot, update, args):
                 return
         if(mysql.searchindb(userid) != -1):
                 mysql.changeondb(userid, msg, username)
-                replyMsg(bot, update, '已更新')
+                replyMsg(bot, update, '你的PSNID已登錄')
         else:
                 mysql.inserttodb(userid, msg, username)
-                replyMsg(bot, update, '更改完成')
+                replyMsg(bot, update, '你的PSNID已更改完成')
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot, update) )
-
-def createRoll(bot, update, args):
-    global rolllist
-    global rollid
-    if(isAdmin(bot, update)):
-        if(len(args) < 2):
-            sendMsg(bot, update, '輸入錯誤')
-        else:
-            try:
-                rolllist.append(Roll(rollid, args[0], float(args[1])))
-                sendMsg(bot, update, '全部完成，/rolllist 查看滾動列表')
-                rollid = rollid + 1
-                rolllist[-1].start()
-            except:
-                sendMsg(bot, update, '因未知錯誤而失敗！')
-            
-def rollList(bot, update):
-    global rolllist
-    global rollid
-    Rlist = 'Rollid\t\t\tTitle\t\t\tWinner'
-    for rollobj in rolllist:
-        Rlist += '\n' + str(rollobj.rollid) + '\t' + rollobj.title + '\t' + rollobj.closetime + '\t' + rollobj.winner
-    sendMsg(bot, update, Rlist)
-
-def joinRoll(bot, update, args):
-    for a in rolllist:
-        if(str(a.rollid) == args[0]):
-            if(update.message.from_user.username != ''):
-                a.user.append(update.message.from_user.username)
-                sendMsg(bot, update, "你已加入")
-                return 0
-            else:
-                sendMsg(bot, update, "好像沒有你的用戶名")
-                return -1
-            sendMsg(bot, update, '發生錯誤')
     
 
 start_handler = CommandHandler('start',start)
-createRoll_handler = CommandHandler('createRoll',createRoll, pass_args = True)
-rollList_handler = CommandHandler('RollList',rollList)
-joinRoll_handler = CommandHandler('join',joinRoll, pass_args = True)
 search_handler = CommandHandler('id',searchid, pass_args = True)
 change_handler = CommandHandler('change',changeid, pass_args = True)
 help_handler = CommandHandler('help',helpmsg)
 setAdmins_handler = CommandHandler('setadmins', setAdmins)
 
-dispatcher.add_handler(joinRoll_handler)
 dispatcher.add_handler(setAdmins_handler)
-dispatcher.add_handler(rollList_handler)
-dispatcher.add_handler(createRoll_handler)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(search_handler)
 dispatcher.add_handler(change_handler)

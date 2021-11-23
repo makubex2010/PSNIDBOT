@@ -48,7 +48,7 @@ def start(bot, update):
     sendMsg(bot, update, '如果您需要幫助，請使用 /help')
 
 def helpmsg(bot, update):
-    sendMsg(bot, update, '\b發送@或回覆 /id 搜索他人的 PSNID\n/change 可登記或更改您的 PSNID\n(例如:/change Azuki_Minaduki)\n如果沒有設定username將無法紀錄')
+    sendMsg(bot, update, '發送@或回覆 /id 搜索他人的 PSNID\n/change 可登記或更改您的 PSNID\n(例如:/change Azuki_Minaduki)\n如果沒有設定username將無法紀錄')
     
 def searchid(bot, update, args):
         try:
@@ -59,15 +59,15 @@ def searchid(bot, update, args):
                 else:
                         user = update.message.reply_to_message.from_user
                         psnid = mysql.searchindb(user.id)
-                whose = '他的PSNID是： '
+                whose = '他的PSNID是：'
         except:
                 user = update.message.from_user
                 psnid = mysql.searchindb(user.id)
-                whose = '你的PSNID是： '
+                whose = '你的PSNID是：'
         if(psnid == -1):
                 psnid = '沒有登錄'
         msgid = update.message.message_id
-        replyMsg(bot, update, str(whose) + str(psnid) + '喔!')
+        replyMsg(bot, update, str(whose) + str(psnid) + '喔！')
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot, update) )
 
@@ -77,7 +77,7 @@ def changeid(bot, update, args):
         username = update.message.from_user.username
         msg = ' '.join(args)
         if(len(msg) <= 0):
-                replyMsg(bot, update, '/b請告訴我你的PSNID\n(例如:/change Azuki_Minaduki)\n如果沒有設定username將無法紀錄')
+                replyMsg(bot, update, '請告訴我你的PSNID\n(例如:/change Azuki_Minaduki)\n如果沒有設定username將無法紀錄')
                 return
         if(mysql.searchindb(userid) != -1):
                 mysql.changeondb(userid, msg, username)

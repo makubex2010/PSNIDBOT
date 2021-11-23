@@ -62,6 +62,7 @@ def searchid(bot, update, args):
                 whose = '他的PSNID是： '
         except:
                 user = update.message.from_user
+                userid = update.message.from_user.id
                 psnid = mysql.searchindb(user.id)
                 whose = '你的PSNID是： '
         if(psnid == -1):

@@ -63,6 +63,7 @@ def searchid(bot, update, args):
         except:
                 user = update.message.from_user
                 psnid = mysql.searchindb(user.id)
+                username = update.message.from_user.username
                 mention = "["+username+"](tg://user?id="+str(user_id)+")"
                 whose = '你的PSNID是：'
         if(psnid == -1):

@@ -14,7 +14,7 @@ dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 def replyMsg(bot, update, msg):
-    bot.sendMessage(chat_id=update.message.chat_id, reply_to_message_id = update.message.message_id, text = msg)
+    bot.sendMessage(chat_id=update.message.chat_id, reply_to_message_id = update.message.message_id, text = <b>msg</b>)
 
 def sendMsg(bot, update, msg):
     bot.sendMessage(chat_id=update.message.chat_id, text = msg)
@@ -48,7 +48,7 @@ def start(bot, update):
     sendMsg(bot, update, '如果您需要幫助，請使用 /help')
 
 def helpmsg(bot, update):
-    sendMsg(bot, update, '發送@或回覆 /id 搜索他人的 PSNID\n/change 可登記或更改您的 PSNID\n(例如:/change Azuki_Minaduki)\n如果沒有設定username將無法紀錄')
+    sendMsg(bot, update, '<b>發送@或回覆 /id 搜索他人的 PSNID\n/change 可登記或更改您的 PSNID\n(例如:/change Azuki_Minaduki)\n如果沒有設定username將無法紀錄</b>')
     
 def searchid(bot, update, args):
         try:
@@ -77,7 +77,7 @@ def changeid(bot, update, args):
         username = update.message.from_user.username
         msg = ' '.join(args)
         if(len(msg) <= 0):
-                replyMsg(bot, update, '請告訴我你的PSNID\n(例如:/change Azuki_Minaduki)\n如果沒有設定username將無法紀錄')
+                replyMsg(bot, update, '<b>請告訴我你的PSNID\n(例如:/change Azuki_Minaduki)\n如果沒有設定username將無法紀錄</b>')
                 return
         if(mysql.searchindb(userid) != -1):
                 mysql.changeondb(userid, msg, username)

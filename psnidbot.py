@@ -60,9 +60,6 @@ def searchid(bot, update, args):
                         user = update.message.reply_to_message.from_user
                         psnid = mysql.searchindb(user.id)
                 whose = '他的PSNID是：'
-                        replyMsg(bot, update,str(whose) + str(psnid) + '呦！')
-#        delmsg(bot, update)
-        _thread.start_new_thread(delmsg,(bot, update) )
         except:
                 user = update.message.from_user
                 psnid = mysql.searchindb(user.id)

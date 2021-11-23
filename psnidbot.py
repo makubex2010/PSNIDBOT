@@ -67,7 +67,7 @@ def searchid(bot, update, args):
         if(psnid == -1):
                 psnid = '沒有登錄'
         msgid = update.message.message_id
-        replyMsg(bot, update, str(user) + str(whose) + str(psnid))
+        replyMsg(bot, update, str(first_name) + str(whose) + str(psnid))
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot, update) )
 

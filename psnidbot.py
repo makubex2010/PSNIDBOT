@@ -14,7 +14,7 @@ dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 def replyMsg(bot, update, msg):
-    bot.sendMessage(chat_id=update.message.chat_id, reply_to_message_id = update.message.message_id, text = msg)
+    bot.sendMessage(chat_id=update.message.chat_id, reply_to_message_id = update.message.message_id, text = msg, parse_mode='MarkdownV2')
 
 def sendMsg(bot, update, msg):
     bot.sendMessage(chat_id=update.message.chat_id, text = msg)

@@ -61,8 +61,9 @@ def searchid(bot, update, args):
                 whose = '他的PSNID是: '
         except:
                 user = update.message.from_user
+                print('You talk with user {} and his user ID: {} '.format(user['username'], user['id']))
                 psnid = mysql.searchindb(user.id)
-                whose = '他的PSNID是: '
+                whose = '你的PSNID是: '
         if(psnid == -1):
                 psnid = '沒有登錄'
         msgid = update.message.message_id

@@ -58,20 +58,18 @@ def searchid(bot, update, args):
                         psnid = mysql.searchname(msg)
                 else:
                         user = update.message.reply_to_message.from_user
-                        first_name = update.message.chat.first_name
                         psnid = mysql.searchindb(user.id)
                         say = '喔!'
                 whose = '的PSNID是: '
         except:
                 user = update.message.from_user
-                first_name = update.message.chat.first_name
                 psnid = mysql.searchindb(user.id)
                 whose = '的PSNID是: '
                 say = '喔!'
         if(psnid == -1):
                 psnid = '沒有登錄'
         msgid = update.message.message_id
-        replyMsg(bot, update, str(first_name) + str(whose) + str(psnid)+ str(say))
+        replyMsg(bot, update, str(whose) + str(psnid)+ str(say))
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot, update) )
 

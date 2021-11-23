@@ -59,15 +59,15 @@ def searchid(bot, update, args):
                 else:
                         user = update.message.reply_to_message.from_user
                         psnid = mysql.searchindb(user.id)
-                whose = '他的PSNID是：'
+                whose = '他的PSNID是：str(psnid)喔!'
         except:
                 user = update.message.from_user
                 psnid = mysql.searchindb(user.id)
-                whose = '你的PSNID是：'
+                whose = '你的PSNID是：str(psnid)喔!'
         if(psnid == -1):
                 psnid = '沒有登錄'
         msgid = update.message.message_id
-        replyMsg(bot, update, str(whose) + str(psnid))
+        replyMsg(bot, update, str(whose))
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot, update) )
 
@@ -81,7 +81,7 @@ def changeid(bot, update, args):
                 return
         if(mysql.searchindb(userid) != -1):
                 mysql.changeondb(userid, msg, username)
-                replyMsg(bot, update, '你的PSNID已登錄')
+                replyMsg(bot, update, '你的PSNID已登錄成功')
         else:
                 mysql.inserttodb(userid, msg, username)
                 replyMsg(bot, update, '你的PSNID已更改完成')

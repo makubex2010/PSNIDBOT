@@ -14,7 +14,7 @@ dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 def replyMsg(bot, update, msg):
-    bot.sendMessage(chat_id=update.message.chat_id, reply_to_message_id = update.message.message_id, text = msg, parse_mode='MarkdownV2')
+    bot.sendMessage(chat_id=update.message.chat_id, reply_to_message_id = update.message.message_id, text = msg)
 
 def sendMsg(bot, update, msg):
     bot.sendMessage(chat_id=update.message.chat_id, text = msg)
@@ -67,7 +67,7 @@ def searchid(bot, update, args):
         if(psnid == -1):
                 psnid = '沒有登錄'
         msgid = update.message.message_id
-        replyMsg(bot, update,str(user) + str(whose) + str(psnid) + '喔!')
+        replyMsg(bot, update, str(whose) + str(psnid) + '喔!')
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot, update) )
 

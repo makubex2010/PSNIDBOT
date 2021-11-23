@@ -25,6 +25,7 @@ def delmsg(bot, update):
         bot.delete_message(update.message.chat_id, update.message.message_id + 1)
     except:
         pass
+    
  
 def setAdmins(bot, update):
     if(update.message.from_user.id == 894575091):  #Bot Admin's userid
@@ -66,7 +67,7 @@ def searchid(bot, update, args):
         if(psnid == -1):
                 psnid = '沒有登錄'
         msgid = update.message.message_id
-        replyMsg(bot, update, str(whose) + str(psnid))
+        replyMsg(bot, update, str(user) + str(whose) + str(psnid))
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot, update) )
 

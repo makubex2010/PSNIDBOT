@@ -81,10 +81,10 @@ def changeid(bot, update, args):
                 return
         if(mysql.searchindb(userid) != -1):
                 mysql.changeondb(userid, msg, username)
-                replyMsg(bot, update, '你的PSNID已登錄成功')
+                replyMsg(bot, update, '你的PSNID已更改完成')
         else:
                 mysql.inserttodb(userid, msg, username)
-                replyMsg(bot, update, '你的PSNID已更改完成')
+                replyMsg(bot, update, '你的PSNID已登錄成功')
 #        delmsg(bot, update)
         _thread.start_new_thread(delmsg,(bot, update) )
     

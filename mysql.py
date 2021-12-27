@@ -3,7 +3,7 @@
 import pymysql
 
 def connectDB(cmd): 
-        db = pymysql.connect("jtb9ia3h1pgevwb1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com", "rfrwe8ksy97efx1k", "epawk56f10zxjf9b", "oyszn9xf2whgmb2j", charset='utf8' )
+        db = pymysql.connect("containers-us-west-21.railway.app:7012", "root", "eQYm2HwqtWARweRi5g6a", "railway", charset='utf8' )
         cursor = db.cursor()
         cursor.execute(cmd)
         data = cursor.fetchone()

@@ -3,7 +3,7 @@
 import pymysql
 
 def connectDB(cmd): 
-        db = pymysql.connect("containers-us-west-21.railway.app", "root", "eQYm2HwqtWARweRi5g6a", "7012", "railway", charset='utf8' )
+        db = pymysql.connect("containers-us-west-21.railway.app", "root", "eQYm2HwqtWARweRi5g6a", "railway", "7012", charset='utf8' )
         cursor = db.cursor()
         cursor.execute(cmd)
         data = cursor.fetchone()

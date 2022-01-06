@@ -3,7 +3,7 @@
 
 PlayStation 同樂會專用的telegram機器人
 
-https://t.me/PlayStation4Tw
+https://t.me/PlayStationTw
 
 ## 需安裝程式
 ```

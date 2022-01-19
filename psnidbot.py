@@ -9,7 +9,7 @@ from Roll import Roll
 from telegram.ext import Updater, CommandHandler
 
 admins = []
-updater = Updater(token="2132340913:AAEo1wKZdu6YMJO4X1Xm5wibIjvwnBRFKzo")
+updater = Updater(token="2132340913:AAH4LC8TTQqDJszqBZi4u5NIZ7MamvKP4GU")
 dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 

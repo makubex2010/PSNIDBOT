@@ -1,7 +1,7 @@
 # PlayStation-NetworkBOT
 ## 介紹
 
-PlayStation 同樂會專用的telegram機器人
+PlayStation 世界玩家會館專用的telegram機器人
 
 https://t.me/PlayStationTw
 
